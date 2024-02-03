@@ -31,7 +31,8 @@ jobs:
 
       - name: Zip Files for Linux
         run: |
-         zip -r release_linux.zip ba_data lib linux-x86_64 
+         zip -r ${{ github.workspace }}/release_linux.zip ba_data && \
+          (cd linux-x86_64 && zip -r ${{ github.workspace }}/release_linux.zip *)
         working-directory: ${{ github.workspace }}
 
       - name: Create Release
