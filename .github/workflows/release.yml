@@ -15,7 +15,7 @@ jobs:
 
       - name: Bump Version
         id: bump_version
-        uses: anothrNick/github-tag-action@1.65
+        uses: anothrNick/github-tag-action@1.67.0
         with:
           default_bump: minor
 
