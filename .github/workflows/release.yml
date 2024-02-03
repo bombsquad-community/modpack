@@ -24,7 +24,7 @@ jobs:
 
       - name: Zip Files for Windows
         run: |
-          zip -r release_windows.zip ba_data lib windows  
+          zip -r release_windows.zip ba_data lib windows/* -j
         working-directory: ${{ github.workspace }}
 
       - name: Zip Files for Linux
