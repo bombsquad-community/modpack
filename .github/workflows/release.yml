@@ -1,0 +1,45 @@
+name: Release Workflow
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Bump Version
+        id: bump_version
+        uses: anothrNick/github-tag-action@1.65
+        with:
+          default_bump: minor
+
+      - name: Zip Files for Windows
+        run: |
+          zip -r release_windows.zip ba_data lib windows  
+        working-directory: ${{ github.workspace }}
+
+      - name: Zip Files for Linux
+        run: |
+         zip -r release_linux.zip ba_data lib linux-x86_64 
+        working-directory: ${{ github.workspace }}
+
+      - name: Create Release
+        id: create_release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            release_windows.zip
+            release_linux.zip
+          token: ${{ secrets.GITHUB_TOKEN }}
+          tag_name: ${{ steps.bump_version.outputs.tag }}
+
+      - name: Update Release Notes
+        run: echo "::set-output name=body::$(cat CHANGELOG.md)"
+        id: get_changelog
+        if: success() && steps.create_release.outputs.release_id
