@@ -60,6 +60,14 @@ def party_icon_activate(origin: Sequence[float]) -> None:
         logging.warning('party_icon_activate: no classic.')
 
 
+def on_button_press_x() ->None:
+    print("button X pressed from UI or keyboard")
+
+
+def on_button_press_y() ->None:
+    print("button Y pressed from UI or keyboard")
+
+
 def quit_window(quit_type: babase.QuitType) -> None:
     from babase import app
 

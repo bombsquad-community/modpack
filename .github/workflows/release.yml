@@ -24,14 +24,14 @@ jobs:
 
       - name: Zip Files for Windows
         run: |
-          zip -r ${{ github.workspace }}/release_windows.zip ba_data lib && \
+          zip -r ${{ github.workspace }}/release_windows.zip ba_data lib ba_root && \
           (cd windows && zip -r ${{ github.workspace }}/release_windows.zip *)
 
         working-directory: ${{ github.workspace }}
 
       - name: Zip Files for Linux
         run: |
-         zip -r ${{ github.workspace }}/release_linux.zip ba_data && \
+         zip -r ${{ github.workspace }}/release_linux.zip ba_data ba_root && \
           (cd linux-x86_64 && zip -r ${{ github.workspace }}/release_linux.zip *)
         working-directory: ${{ github.workspace }}
 
