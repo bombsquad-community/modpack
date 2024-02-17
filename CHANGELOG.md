@@ -1,4 +1,5 @@
 ### 0.5.0
+- visualize in game prop node properties in real time, Enable debug mode with F10.
 - changed mods directory from home to ba_root in root folder within game files. 
 - added extra X, Y UI buttons which triggers bauiv1._hooks, will be in use by future mods.
 - press F10 to enable debug draw and visualize invisible region node.
