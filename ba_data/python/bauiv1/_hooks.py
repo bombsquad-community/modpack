@@ -61,7 +61,12 @@ def party_icon_activate(origin: Sequence[float]) -> None:
 
 
 def on_button_press_x() ->None:
-    print("button X pressed from UI or keyboard")
+    try:
+        from mood_setter import MoodSetterWindow
+        MoodSetterWindow().draw_ui()
+    except:
+        pass
+    # print("button X pressed from UI or keyboard")
 
 
 def on_button_press_y() ->None:
