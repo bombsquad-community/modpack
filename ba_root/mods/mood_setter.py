@@ -21,6 +21,7 @@
 import bauiv1 as bui
 import babase
 import _babase
+import ui_hooks
 from bauiv1lib.colorpicker import ColorPicker
 from bauiv1lib import mainmenu
 
@@ -217,12 +218,19 @@ class NewMainMenuWindow(mainmenu.MainMenuWindow):
         # Display chat icon, but if user open/close gather it may disappear
         bui.set_party_icon_always_visible(True)
 
-     
+def new_on_button_x_press(arg):
+    if arg == "X":
+        MoodSetterWindow().draw_ui()
+    if arg == "Y":
+        print("button Y pressed from UI or keyboard")
+    
+    
 # ba_meta export plugin
 class Mood_selector(babase.Plugin):
     def on_app_running(self) -> None:
         _babase.set_global_tint(*MoodSetterWindow().color)
         mainmenu.MainMenuWindow = NewMainMenuWindow
+        ui_hooks.on_button_xy_press = new_on_button_x_press
         
         
     def has_settings_ui(self):
