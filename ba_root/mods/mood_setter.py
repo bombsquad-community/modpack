@@ -167,18 +167,21 @@ class MoodSetterWindow(bui.Window):
         # Good idea to revert this back now so we do not break anything else.
         # bui.app.classic.accounts.have_pro = original_have_pro
         bui.containerwidget(edit=self._root_widget, transition="out_right")
-    
+
 
     def reset(self, transition_out=True):
         if transition_out:
             bui.getsound("gunCocking").play()
-        babase.app.config["MoodSetter"] = (1, 1, 1)
-        babase.app.config.commit()
+        try:
+            del babase.app.config["MoodSetter"]
+            babase.app.config.commit()
+        except:
+            pass
         _babase.disable_custom_tint()
         # Good idea to revert this back now so we do not break anything else.
         # bui.app.classic.accounts.have_pro = original_have_pro
         bui.containerwidget(edit=self._root_widget, transition="out_right")
-            
+
 
     def save(self, transition_out=True):
         if transition_out:
@@ -190,7 +193,7 @@ class MoodSetterWindow(bui.Window):
         # Good idea to revert this back now so we do not break anything else.
         # bui.app.classic.accounts.have_pro = original_have_pro
         bui.containerwidget(edit=self._root_widget, transition="out_right")
-    
+
     def _set_color(self, color):
         self._color = color
         _babase.set_global_tint(*self._color)
@@ -211,7 +214,7 @@ class MoodSetterWindow(bui.Window):
         # The `ColorPicker` expects this method to exist in the delegate,
         # so here it is!
         pass
-    
+
 class NewMainMenuWindow(mainmenu.MainMenuWindow):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -223,16 +226,19 @@ def new_on_button_x_press(arg):
         MoodSetterWindow().draw_ui()
     if arg == "Y":
         print("button Y pressed from UI or keyboard")
-    
-    
+
+
 # ba_meta export plugin
 class Mood_selector(babase.Plugin):
     def on_app_running(self) -> None:
-        _babase.set_global_tint(*MoodSetterWindow().color)
+        color = babase.app.config.get("MoodSetter", (None))
+
+        if color:
+            _babase.set_global_tint(*color)
         mainmenu.MainMenuWindow = NewMainMenuWindow
         ui_hooks.on_button_xy_press = new_on_button_x_press
-        
-        
+
+
     def has_settings_ui(self):
         return True
 
