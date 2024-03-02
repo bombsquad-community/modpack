@@ -1,3 +1,6 @@
+### 0.6.0
+- Added game controller haptic/vibration support, supported controllers will shake along with your screen.
+
 ### 0.5.0
 - visualize in game prop node properties in real time, Enable debug mode with F10.
 - unlocked replay speed limit.
